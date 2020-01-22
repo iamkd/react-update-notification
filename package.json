@@ -1,6 +1,6 @@
 {
   "name": "react-update-notification",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "New version notification for your React application.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -15,7 +15,7 @@
   "bin": {
     "generate-version": "./bin/generate-version.js"
   },
-  "repository": "https://github.com/iamkd/react-app-refresh",
+  "repository": "https://github.com/iamkd/react-update-notification",
   "author": "Danyil Karuna <kd@oked.me>",
   "license": "MIT",
   "private": false,
