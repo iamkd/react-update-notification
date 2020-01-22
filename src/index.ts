@@ -25,6 +25,10 @@ export const useUpdateCheck = (params: UpdateHookParams) => {
   const [status, setStatus] = useState<Status>('checking');
 
   const checkUpdate = () => {
+    if (status === 'available') {
+      return;
+    }
+
     if (typeof currentVersion === 'undefined') {
       setStatus('current');
       return;
