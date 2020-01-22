@@ -1,4 +1,4 @@
-# react-update-notification
+# react-update-notification &middot; [![npm version](https://img.shields.io/npm/v/react-update-notification.svg?style=flat)](https://www.npmjs.com/package/react-update-notification)
 
 A small cli tool & React hook to check when your app is updated and show a notification.
 
