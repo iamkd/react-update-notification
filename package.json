@@ -1,0 +1,39 @@
+{
+  "name": "react-update-notification",
+  "version": "0.1.0-alpha.1",
+  "description": "New version notification for your React application.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build:cjs": "tsc",
+    "build:es": "tsc -m ESNext --outDir es --moduleResolution Node",
+    "build": "yarn clean && yarn build:cjs && yarn build:es",
+    "clean": "rimraf lib es"
+  },
+  "bin": {
+    "generate-version": "./bin/generate-version.js"
+  },
+  "repository": "https://github.com/iamkd/react-app-refresh",
+  "author": "Danyil Karuna <kd@oked.me>",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "lib",
+    "bin",
+    "es"
+  ],
+  "peerDependencies": {
+    "react": "^16.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.18",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "yargs": "^15.1.0"
+  }
+}
