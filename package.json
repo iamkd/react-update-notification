@@ -1,6 +1,6 @@
 {
   "name": "react-update-notification",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "New version notification for your React application.",
   "main": "lib/index.js",
   "module": "es/index.js",

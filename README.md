@@ -28,10 +28,15 @@ In your `package.json`, add call to `generate-version` after the build is create
 ```json
 {
   "scripts": {
-    "build": "react-scripts build && generate-version"
+    "build": "react-scripts build && generate-version -s package"
   }
 }
 ```
+
+`generate-version` accepts several types of strategies to differentiate versions and trigger the update notification:
+
+- `latest-commit` uses current commit hash.
+- `package` uses package.json `version` field.
 
 <!-- `generate-version` accepts custom paths to `index.html` and to target `version.json` like this:
 
@@ -46,7 +51,10 @@ import React from 'react';
 import { useUpdateCheck } from 'react-update-notification';
 
 const NotificationContainer = () => {
-  const { status, reloadPage } = useUpdateCheck();
+  const { status, reloadPage } = useUpdateCheck({
+    type: 'interval',
+    interval: 10000
+  });
 
   if (status === 'checking' || status === 'current') {
     return null;
@@ -64,6 +72,8 @@ const NotificationContainer = () => {
 
 ## TODO
 
+- [ ] Define behavior when version file is broken / does not exist
+- [x] Custom strategies for version generation (package.json, commit id)
 - [ ] Custom paths to `generate-version`
-- [ ] Hook options (checking update using interval)
+- [x] Hook options (checking update using interval)
 - [ ] Proper documentation, tests and build
