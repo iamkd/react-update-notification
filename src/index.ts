@@ -1,71 +1,65 @@
-import { useState, useEffect } from 'react';
-
-declare global {
-  interface Window {
-    __APP_VERSION__: string;
-  }
-}
-
-interface VersionFileResponse {
-  version: string;
-}
-
-interface UpdateHookParams {
-  type: 'mount' | 'interval';
-  interval?: number;
-}
-
-type Status = 'checking' | 'current' | 'available';
+import { useEffect, useState } from 'react';
+import {
+  UpdateHookParams,
+  UpdateHookReturnValue,
+  UpdateStatus,
+  VersionFileResponse,
+} from './types';
 
 const reloadPage = () => window.location.reload(true);
 
 const currentVersion = window.__APP_VERSION__;
 
-export const useUpdateCheck = (params: UpdateHookParams) => {
-  const [status, setStatus] = useState<Status>('checking');
+export const useUpdateCheck = ({
+  interval,
+  type,
+}: UpdateHookParams): UpdateHookReturnValue => {
+  const [status, setStatus] = useState<UpdateStatus>(UpdateStatus.checking);
 
   const checkUpdate = () => {
-    if (status === 'available') {
-      return;
-    }
-
     if (typeof currentVersion === 'undefined') {
-      setStatus('current');
+      setStatus(UpdateStatus.current);
       return;
     }
 
-    setStatus('checking');
+    setStatus(UpdateStatus.checking);
 
-    fetch('/version.json')
-      .then(res => res.json() as Promise<VersionFileResponse>)
-      .then(data => {
+    fetch(`/${window.__APP_VERSION_FILE__}`)
+      .then((res) => res.json() as Promise<VersionFileResponse>)
+      .then((data) => {
         if (data.version === currentVersion) {
-          setStatus('current');
+          setStatus(UpdateStatus.current);
         } else {
-          setStatus('available');
+          setStatus(UpdateStatus.available);
         }
       })
-      .catch(err => {
-        //TODO Define behavior when version file is broken / does not exist
+      .catch(() => {
+        setStatus(UpdateStatus.current);
       });
   };
 
   useEffect(() => {
-    checkUpdate();
-  }, []);
+    if (type !== 'manual') {
+      checkUpdate();
+    }
+  }, [type]);
 
   useEffect(() => {
-    if (params.type === 'interval') {
-      const interval = setInterval(
+    if (status !== UpdateStatus.current) {
+      return;
+    }
+
+    if (type === 'interval') {
+      const timeoutId = window.setTimeout(
         () => checkUpdate(),
-        params.interval || 10000
+        interval || 10000
       );
 
       return () => {
-        clearInterval(interval);
+        clearTimeout(timeoutId);
       };
     }
-  }, [params.type, params.interval]);
+  }, [type, interval, status]);
 
-  return { status, reloadPage };
+  return { status, reloadPage, checkUpdate };
 };

@@ -20,8 +20,8 @@ function getVersion(strategy) {
 function generate(argv) {
   const appVersion = getVersion(argv.s);
 
-  const versionPath = path.resolve(process.cwd(), argv.v);
-  const indexPath = path.resolve(process.cwd(), argv.i);
+  const versionPath = path.resolve(process.cwd(), argv.b, argv.v);
+  const indexPath = path.resolve(process.cwd(), argv.b, argv.i);
 
   try {
     fs.writeFileSync(versionPath, JSON.stringify({ version: appVersion }));
@@ -65,22 +65,29 @@ const argv = yargs
     description: 'What source to use to generate version',
     choices: ['latest-commit', 'package'],
     nargs: 1,
-    default: 'package'
+    default: 'latest-commit',
+  })
+  .option('buildPath', {
+    alias: 'b',
+    description: 'The build root',
+    nargs: 1,
+    default: 'build',
   })
   .option('indexFile', {
     alias: 'i',
-    description: 'Path to index.html',
+    description: 'Path to index.html relative to build root',
     nargs: 1,
-    default: 'build/index.html'
+    default: 'index.html',
   })
   .option('versionFile', {
     alias: 'v',
-    description: 'Version file target path',
+    description: 'Version file target path relative to build root',
     nargs: 1,
-    default: 'build/version.json'
+    default: 'version.json',
   })
-  .example('$0 -i build/index.html')
-  .example('$0 -i build/index.html -v build/version.json')
+  .example('$0 -b build/my-custom-build-root')
+  .example('$0 -i index.html')
+  .example('$0 -i index.html -v version.json')
   .version(false)
   .help().argv;
 
