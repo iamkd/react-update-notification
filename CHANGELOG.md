@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## [1.1.1] - 2021-03-25
+
+### Added
+
+- The ability to ignore the server cache by setting `ignoreServerCache` param to `true`.
+- Updated dependencies.
+
 ## [1.0.0] - 2020-08-29
 
 ### Added
@@ -14,5 +21,6 @@
 - Replaced `setInterval` with `setTimeout` to provide smarter checks and avoid unnecessary rerenders.
 - Checks stop if the new version is detected.
 
-[unreleased]: https://github.com/iamkd/react-update-notification/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/iamkd/react-update-notification/compare/v1.1.1...HEAD
 [1.0.0]: https://github.com/iamkd/react-update-notification/releases/tag/v1.0.0
+[1.1.1]: https://github.com/iamkd/react-update-notification/releases/tag/v1.1.1

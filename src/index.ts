@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   UpdateHookParams,
   UpdateHookReturnValue,
@@ -13,10 +13,11 @@ const currentVersion = window.__APP_VERSION__;
 export const useUpdateCheck = ({
   interval,
   type,
+  ignoreServerCache,
 }: UpdateHookParams): UpdateHookReturnValue => {
   const [status, setStatus] = useState<UpdateStatus>(UpdateStatus.checking);
 
-  const checkUpdate = () => {
+  const checkUpdate = useCallback(() => {
     if (typeof currentVersion === 'undefined') {
       setStatus(UpdateStatus.current);
       return;
@@ -24,7 +25,13 @@ export const useUpdateCheck = ({
 
     setStatus(UpdateStatus.checking);
 
-    fetch(`/${window.__APP_VERSION_FILE__}`)
+    let requestStr = `/${window.__APP_VERSION_FILE__}`;
+
+    if (ignoreServerCache) {
+      requestStr += `?v=${Date.now()}`;
+    }
+
+    fetch(requestStr)
       .then((res) => res.json() as Promise<VersionFileResponse>)
       .then((data) => {
         if (data.version === currentVersion) {
@@ -36,13 +43,13 @@ export const useUpdateCheck = ({
       .catch(() => {
         setStatus(UpdateStatus.current);
       });
-  };
+  }, [ignoreServerCache]);
 
   useEffect(() => {
     if (type !== 'manual') {
       checkUpdate();
     }
-  }, [type]);
+  }, [checkUpdate, type]);
 
   useEffect(() => {
     if (status !== UpdateStatus.current) {
@@ -59,7 +66,7 @@ export const useUpdateCheck = ({
         clearTimeout(timeoutId);
       };
     }
-  }, [type, interval, status]);
+  }, [type, interval, status, checkUpdate]);
 
   return { status, reloadPage, checkUpdate };
 };

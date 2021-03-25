@@ -12,6 +12,7 @@ export interface VersionFileResponse {
 export interface UpdateHookParams {
   type: 'mount' | 'interval' | 'manual';
   interval?: number;
+  ignoreServerCache?: boolean;
 }
 
 export enum UpdateStatus {
