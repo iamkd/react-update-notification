@@ -6,6 +6,8 @@ import {
   VersionFileResponse,
 } from './types';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const reloadPage = () => window.location.reload(true);
 
 const currentVersion = window.__APP_VERSION__;
