@@ -53,7 +53,7 @@ function generate(argv) {
 
   const loadedIndex = cheerio.load(indexFile.toString());
   loadedIndex('head').append(
-    `<script>window.__APP_VERSION__ = "${appVersion}"; window.__APP_VERSION_FILE__ = "${argv.v}"</script>`
+    `<script>window.__APP_VERSION__ = "${appVersion}"; window.__APP_VERSION_FILE__ = "${argv.p}${argv.v}"</script>`
   );
   fs.writeFileSync(indexPath, loadedIndex.html());
 }
@@ -84,6 +84,12 @@ const argv = yargs
     description: 'Version file target path relative to build root',
     nargs: 1,
     default: 'version.json',
+  })
+  .option('versionFilePathPrefix', {
+    alias: 'p',
+    description: 'A prefix to add before the versionFile option',
+    nargs: 1,
+    default: '',
   })
   .example('$0 -b build/my-custom-build-root')
   .example('$0 -i index.html')

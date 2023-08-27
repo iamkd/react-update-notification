@@ -42,6 +42,7 @@ In your `package.json`, add call to `generate-version` after the build is create
 |  `-b`, `--buildPath`  | Set custom build path. This should be the root of the public directory that is served.                                                                                                                                                                  |     `build`     |
 |  `-i`, `--indexFile`  | Path to index.html relative to build path.                                                                                                                                                                                                              |  `index.html`   |
 | `-v`, `--versionFile` | Version file target path relative to build path.                                                                                                                                                                                                        | `version.json`  |
+| `-p`, `--versionFilePathPrefix` | A prefix to add before the versionFile option above (useful for more control over the deployed version file target path e.g. when using subdirectories to host your React app).|   |
 
 ### 2. Using a React hook
 
