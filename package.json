@@ -1,6 +1,6 @@
 {
   "name": "react-update-notification",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "New version notification for your React application.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -14,9 +14,12 @@
     "prettier": "prettier --write src/*.ts bin/*.js"
   },
   "bin": {
-    "generate-version": "./bin/generate-version.js"
+    "generate-version": "bin/generate-version.js"
   },
-  "repository": "https://github.com/iamkd/react-update-notification",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamkd/react-update-notification.git"
+  },
   "author": "Danyil Karuna <daniel@karuna.dev>",
   "license": "MIT",
   "private": false,
