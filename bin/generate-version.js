@@ -28,7 +28,7 @@ function generate(argv) {
   } catch (e) {
     if (e.code === 'ENOENT') {
       console.error(
-        `Error: incorrect path to version file. Path used: ${e.path}`
+        `Error: incorrect path to version file. Path used: ${e.path}`,
       );
     } else {
       console.log(e);
@@ -43,7 +43,7 @@ function generate(argv) {
   } catch (e) {
     if (e.code === 'ENOENT') {
       console.error(
-        `Error: incorrect path to index.html. Path used: ${e.path}`
+        `Error: incorrect path to index.html. Path used: ${e.path}`,
       );
     } else {
       console.log(e);
@@ -53,7 +53,7 @@ function generate(argv) {
 
   const loadedIndex = cheerio.load(indexFile.toString());
   loadedIndex('head').append(
-    `<script>window.__APP_VERSION__ = "${appVersion}"; window.__APP_VERSION_FILE__ = "${argv.p}${argv.v}"</script>`
+    `<script>window.__APP_VERSION__ = "${appVersion}"; window.__APP_VERSION_FILE__ = "${argv.p}${argv.v}"</script>`,
   );
   fs.writeFileSync(indexPath, loadedIndex.html());
 }

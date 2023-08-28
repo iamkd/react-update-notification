@@ -61,11 +61,11 @@ export const useUpdateCheck = ({
     if (type === 'interval') {
       const timeoutId = window.setTimeout(
         () => checkUpdate(),
-        interval || 10000
+        interval || 10000,
       );
 
       return () => {
-        clearTimeout(timeoutId);
+        window.clearTimeout(timeoutId);
       };
     }
   }, [type, interval, status, checkUpdate]);
