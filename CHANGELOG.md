@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## [1.2.1] - 2026-07-08
+
+### Fixed
+
+- Include React 19 in supported peer dependency ranges.
+- Build package outputs before packing so npm tarballs keep shipping generated hook files.
+
 ## [1.1.1] - 2021-03-25
 
 ### Added
@@ -21,6 +28,7 @@
 - Replaced `setInterval` with `setTimeout` to provide smarter checks and avoid unnecessary rerenders.
 - Checks stop if the new version is detected.
 
-[unreleased]: https://github.com/iamkd/react-update-notification/compare/v1.1.1...HEAD
+[unreleased]: https://github.com/iamkd/react-update-notification/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/iamkd/react-update-notification/compare/v.1.2.0...v1.2.1
 [1.0.0]: https://github.com/iamkd/react-update-notification/releases/tag/v1.0.0
 [1.1.1]: https://github.com/iamkd/react-update-notification/releases/tag/v1.1.1

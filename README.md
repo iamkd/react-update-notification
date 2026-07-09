@@ -3,6 +3,8 @@
 A small CLI tool & React hook to check when your app has a new version and show a notification.
 Works great when you cannot or do not want to set up a service worker.
 
+Supports React 16.12, 17, 18, and 19.
+
 ## Installation
 
 ```bash
